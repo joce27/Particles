@@ -30,7 +30,19 @@ void Engine::input()
 
 void Engine::update(float dtAsSeconds)
 {
-
+	vector<Particle>::iterator iter;
+	for (iter = m_particles.begin(); iter != m_particles.end();)
+	{
+		if (iter->getTTL() < 0.0)
+		{
+			iter->update(dtAsSeconds);
+			++iter;
+		}
+		else
+		{
+			iter = m_particles.erase(iter);
+		} 
+	}
 }
 
 void Engine::draw()
