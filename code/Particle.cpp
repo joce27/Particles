@@ -46,17 +46,27 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 void Particle::draw(RenderTarget& target, RenderStates states) const
 {
     VertexArray lines(TriangleFan, m_numPoints + 1);
-    Vector2f center = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
+
+    Vector2i centerTemp = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
+    Vector2f center;
+    centerTemp.x = centerTemp.x;
+    centerTemp.y = centerTemp.y;
+
     lines[0].position = center;
     lines[0].color = m_color1;
-
+    
     for (int j = 1; j < m_numPoints + 1; j++)
     {
         Vector2f coordinate;
         coordinate.x = m_A(0, j - 1);
         coordinate.y = m_A(1, j - 1);
 
-        lines[j].position = target.mapCoordsToPixel(coordinate, m_cartesianPlane);
+        Vector2i positionTemp = target.mapCoordsToPixel(coordinate, m_cartesianPlane);
+        Vector2f position;
+        position.x = positionTemp.x;
+        position.y = positionTemp.y;
+
+        lines[j].position = position; 
         lines[j].color = m_color2;
     }
 
@@ -234,7 +244,6 @@ void Particle::scale(double c)
 {
 
 }
-
 
 ///shift the Particle by (xShift, yShift) coordinates
 ///construct a TranslationMatrix T, add it to m_A
