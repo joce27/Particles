@@ -25,6 +25,10 @@ void Engine::input()
 				}
 			}
 		}
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			m_Window.close();
+		}
 	}
 }
 
