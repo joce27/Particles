@@ -49,8 +49,8 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 
     Vector2i centerTemp = target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane);
     Vector2f center;
-    centerTemp.x = centerTemp.x;
-    centerTemp.y = centerTemp.y;
+    center.x = centerTemp.x;
+    center.y = centerTemp.y;
 
     lines[0].position = center;
     lines[0].color = m_color1;
