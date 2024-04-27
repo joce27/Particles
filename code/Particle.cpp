@@ -20,9 +20,10 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 
     Uint8 r = rand() % (r + 1);
     Uint8 g = rand() % (g + 1);
-    Unit8 b = rand() % (b + 1);
+    Uint8 b = rand() % (b + 1);
+    Color temp(r, g, b);
     m_color1 = Color::White;
-    m_color2 = Color::Color(r, b, g);
+    m_color2 = temp;
 
     // Generate numPoint vertices by sweeping a circular arc with randomized radii
     double theta = ((float)rand() / RAND_MAX) * (M_PI / 2);
@@ -64,14 +65,14 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 
 void Particle::update(float dt)
 {
-    m_ttl - dt;
+    m_ttl -= dt;
     rotate(dt * m_radiansPerSec);
     scale(SCALE);
 
     // Calculate how far to shift the particle using distance (dx, dy)
     double dx = m_vx * dt;
     double dy = 0.0;
-    m_vy - G * dt;
+    m_vy -= (G * dt);
     dy = m_vy * dt;
     translate(dx, dy);
 }
@@ -233,6 +234,7 @@ void Particle::scale(double c)
 {
 
 }
+
 
 ///shift the Particle by (xShift, yShift) coordinates
 ///construct a TranslationMatrix T, add it to m_A

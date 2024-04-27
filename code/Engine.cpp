@@ -6,11 +6,11 @@ void Engine::input()
 	Vector2i mouseClickPosition;
 
 	Event event;
-	while (window.pollEvent(event))
+	while (m_Window.pollEvent(event))
 	{
 		if (event.type == Event::Closed)
 		{
-			window.close();
+			m_Window.close();
 		}
 		if (event.type == Event::MouseButtonPressed)
 		{
