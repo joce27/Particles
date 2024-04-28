@@ -51,15 +51,38 @@ void Engine::update(float dtAsSeconds)
 
 void Engine::draw()
 {
-
+	m_Window.clear();
+	for(const auto& particle : m_particles){
+		
+	m_Window.draw(particle);
+		
+	}
+	
+	m_Window.display();
 }
 
 Engine::Engine()
 {
+	m_Window.create(VideoMode::getDesktopMode(), "YourGameTitle");	
 
 }
 
 void Engine::run()
 {
+	Clock clock;
 	
+        cout << "Starting Particle unit tests..." << endl;
+	
+	Particle p(m_Window, 4, { (int)m_Window.getSize().x / 2, (int)m_Window.getSize().y / 2 });
+   	p.unitTests();
+	
+        cout << "Unit tests complete.  Starting engine..." << endl;
+
+	while(m_Window.isOpen()){
+		Time dt = clock.restart();
+		float dtAsSeconds = dt.asSeconds;
+		input();
+		update(dtAsSeconds);
+		draw();
+	}
 }
